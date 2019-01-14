@@ -1,15 +1,14 @@
-const listsBtn = [...document.querySelectorAll("button")];
-const removeTask = (e) => {
-    // e.target.remove();
+const input = document.querySelector("input");
+const ul = document.querySelector("ul");
+const liElem = document.querySelectorAll("li");
 
-    // e.target.parentNode.remove();
+const searchTask = (e) => {
+    const searchText = e.target.value.toLowerCase();
 
-    // e.target.parentNode.style.textDecoration = "line-through";
-
-    const index = e.target.dataset.key;
-    document.querySelector(`li[data-key="${index}"]`).remove()
-};
-
-for (let i = 0; i < listsBtn.length; i++) {
-    listsBtn[i].addEventListener('click', removeTask);
+    let tasks = [...liElem];
+    tasks = tasks.filter(task => task.textContent.toLowerCase().includes(searchText));
+    console.log(tasks);
+    ul.textContent = "";
+    tasks.forEach(li => ul.appendChild(li));
 }
+input.addEventListener("input", searchTask);
