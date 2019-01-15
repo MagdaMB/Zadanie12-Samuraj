@@ -1,15 +1,32 @@
-const listsBtn = [...document.querySelectorAll("button")];
-const removeTask = (e) => {
-    // e.target.remove();
+const btnAdd = document.querySelector(".add");
+const ul = document.querySelector("ul");
+const spanText = document.querySelector("span");
+const textInput = document.querySelector(".text");
 
-    // e.target.parentNode.remove();
+const delTask = (e) => {
+    e.target.parentNode.remove();
+    const listItems = document.querySelectorAll("li");
+    spanText.textContent = [...listItems].length;
 
-    // e.target.parentNode.style.textDecoration = "line-through";
-
-    const index = e.target.dataset.key;
-    document.querySelector(`li[data-key="${index}"]`).remove()
-};
-
-for (let i = 0; i < listsBtn.length; i++) {
-    listsBtn[i].addEventListener('click', removeTask);
 }
+
+const addElement = (e) => {
+    e.preventDefault();
+    const titleTask = textInput.value;
+    if (titleTask === "") return;
+    const newLi = document.createElement("li");
+    newLi.innerHTML = textInput.value + "<button>Usuń</button";
+
+    ul.appendChild(newLi);
+
+    const listItems = document.querySelectorAll("li");
+    console.log(listItems)
+
+    let numberTasks = listItems.length;
+    spanText.textContent = numberTasks;
+
+    newLi.querySelector("button").addEventListener('click', delTask);
+}
+
+
+btnAdd.addEventListener('click', addElement);
